@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ArticleJS | Home</title>
+        <!-- Import Bootstrap CSS core -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Import Font-Awesome CSS for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <div id="title-info">
+                    <!-- Article Title will populate this h1 -->
+                    <h1 class="text-center" id="article-title"></h1>
+                    <p style="padding-left:10%;margin-bottom:2px;">Date:</p>
+                    <!-- Article Date will populate this p -->
+                    <p style="padding-left:10%;" id="article-date"></p>
+                    <!-- /BEGIN/ Nav arrows container -->
+                    <div class="container" style="padding-bottom:20px">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button class="pull-left">
+                                    <i class="fa fa-arrow-left fa-2x"></i>
+                                </button>                                 
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="pull-right">
+                                    <i class="fa fa-arrow-right fa-2x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /END/ Nav arrows container -->
+                </div>
+                <!-- Article Content will populate this div -->
+                <div class="container" id="article-content"></div>
+            </div>
+            <!-- Javascript to load article components -->
+            <script src="article-js/read.js"></script>
+            <!-- Javascript to load latest article and populate above HTML tags -->
+            <script>
+                // define a new config-reader called conf
+                var conf = new Config();
+                // define a new article called art_one
+                var art_one = new Article();
+                // invoke the load function of conf to update the variables from the config file
+                // also, set the callback function, called after conf.load() completes
+                conf.load(function(){
+                  // update the article's id to match the most recent article (stored in conf as latestNum)
+                  art_one.id = conf.latestNum;
+                  // invoke the load function of art_one to update the variables to the article at id#'s content
+                  // also, set the callback function, called after art_one.load() completes
+                  art_one.load(function(){
+                    // invoke the populate function to populate the HTML tags given as arguments
+                    // arg1: title, arg2: date, arg3: content
+                    art_one.populate("article-title","article-date","article-content");
+                  });
+                });
+            </script>
+            <div class="container main-section" id="footer">
+                <!-- /.row -->
+                <div class="row text-center">
+                    <hr>
+                    <h5>Your awesome site footer :)</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS core-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>
